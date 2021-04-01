@@ -30,7 +30,7 @@ async function list (params) {
 
 async function create (params) {
   const [providerName, name] = params.args;
-  const { link: linkedAppAlias, plan: planName, region, yes: skipConfirmation, org: orgaIdOrName } = params.options;
+  const { link: linkedAppAlias, plan: planName, region, org: orgaIdOrName } = params.options;
   const version = params.options['addon-version'];
   const addonOptions = parseAddonOptions(params.options.option);
 
@@ -49,7 +49,6 @@ async function create (params) {
       providerName,
       planName,
       region,
-      skipConfirmation,
       version,
       addonOptions,
     });
@@ -57,7 +56,7 @@ async function create (params) {
     Logger.println(`Addon ${name} (id: ${newAddon.id}) successfully created and linked to the application`);
   }
   else {
-    const newAddon = await Addon.create({ ownerId, name, providerName, planName, region, skipConfirmation, version, addonOptions });
+    const newAddon = await Addon.create({ ownerId, name, providerName, planName, region, version, addonOptions });
     Logger.println(`Addon ${name} (id: ${newAddon.id}) successfully created`);
   }
 }

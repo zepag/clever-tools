@@ -2,8 +2,7 @@
 
 const application = require('@clevercloud/client/cjs/api/v2/application.js');
 const autocomplete = require('cliparse').autocomplete;
-const colors = require('colors/safe');
-const { get: getAddon, getAll: getAllAddons, remove: removeAddon, create: createAddon, preorder: preorderAddon, update: updateAddon } = require('@clevercloud/client/cjs/api/v2/addon.js');
+const { get: getAddon, getAll: getAllAddons, remove: removeAddon, create: createAddon, update: updateAddon } = require('@clevercloud/client/cjs/api/v2/addon.js');
 const { getAllAddonProviders } = require('@clevercloud/client/cjs/api/v2/product.js');
 const { getSummary } = require('@clevercloud/client/cjs/api/v2/user.js');
 const { getAddonProvider } = require('@clevercloud/client/cjs/api/v4/addon-providers.js');
@@ -127,7 +126,7 @@ function validateAddonVersionAndOptions (region, version, addonOptions, provider
   }
 }
 
-async function create ({ ownerId, name, providerName, planName, region, skipConfirmation, version, addonOptions }) {
+async function create ({ ownerId, name, providerName, planName, region, version, addonOptions }) {
 
   // TODO: We should be able to use it without {}
   const providers = await listProviders();
@@ -166,19 +165,6 @@ async function create ({ ownerId, name, providerName, planName, region, skipConf
     region,
     options: createOptions,
   };
-
-  const result = await preorderAddon({ id: ownerId }, addonToCreate).then(sendToApi);
-
-  if (result.totalTTC > 0 && !skipConfirmation) {
-    result.lines.forEach(({ description, VAT, price }) => Logger.println(`${description}\tVAT: ${VAT}%\tPrice: ${price}€`));
-    Logger.println(`Total (without taxes): ${result.totalHT}€`);
-    Logger.println(colors.bold(`Total (with taxes): ${result.totalTTC}€`));
-
-    await Interact.confirm(
-      `You're about to pay ${result.totalTTC}€, confirm? (yes or no) `,
-      'No confirmation, aborting addon creation',
-    );
-  }
 
   return createAddon({ id: ownerId }, addonToCreate).then(sendToApi);
 }

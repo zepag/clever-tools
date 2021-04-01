@@ -350,10 +350,6 @@ function run () {
     }),
     verbose: cliparse.flag('verbose', { aliases: ['v'], description: 'Verbose output' }),
     withoutCache: cliparse.flag('without-cache', { description: 'Restart the application without using cache' }),
-    confirmAddonCreation: cliparse.flag('yes', {
-      aliases: ['y'],
-      description: 'Skip confirmation even if the addon is not free',
-    }),
     confirmAddonDeletion: cliparse.flag('yes', {
       aliases: ['y'],
       description: 'Skip confirmation and delete the addon directly',
@@ -387,7 +383,7 @@ function run () {
   const addonCreateCommand = cliparse.command('create', {
     description: 'Create an addon',
     args: [args.addonProvider, args.addonName],
-    options: [opts.linkAddon, opts.confirmAddonCreation, opts.addonPlan, opts.addonRegion, opts.addonVersion, opts.addonOptions],
+    options: [opts.linkAddon, opts.addonPlan, opts.addonRegion, opts.addonVersion, opts.addonOptions],
   }, addon('create'));
   const addonDeleteCommand = cliparse.command('delete', {
     description: 'Delete an addon',
