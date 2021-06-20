@@ -2,10 +2,6 @@ pipeline {
   agent { label 'test-zepag-hyoob-todelete' }
   environment {
     GIT_TAG_NAME = gitTagName()
-    S3_KEY_ID = credentials('CELLAR_CC_TOOLS_ACCESS_KEY_ID')
-    S3_SECRET_KEY = credentials('CELLAR_CC_TOOLS_SECRET_ACCESS_KEY')
-    BINTRAY_API_KEY = credentials('BINTRAY_CC_TOOLS_API_KEY')
-    NPM_TOKEN = credentials('NPM_TOKEN')
   }
   options {
     buildDiscarder(logRotator(daysToKeepStr: '5', numToKeepStr: '10', artifactDaysToKeepStr: '5', artifactNumToKeepStr: '10'))
