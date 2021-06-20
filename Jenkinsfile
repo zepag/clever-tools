@@ -8,11 +8,13 @@ pipeline {
   }
   stages {
     stage('test') {
-      docker.image('archlinux').inside {
+      steps {
+        docker.image('archlinux').inside {
           sh 'echo "hello foobar"'
           sh 'ls /'
           sh 'uname -a'
           sh 'cat /etc/os-release'
+        }
       }
     }
   }
