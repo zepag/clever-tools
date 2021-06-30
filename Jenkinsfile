@@ -10,12 +10,7 @@ pipeline {
     stage('test') {
       steps {
         script{
-          docker.image('archlinux').inside {
-            sh 'echo "hello foobar"'
-            sh 'ls /'
-            sh 'uname -a'
-            sh 'cat /etc/os-release'
-          }
+          sh 'docker run hello-world'
         }
       }
     }
