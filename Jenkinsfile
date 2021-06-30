@@ -10,7 +10,12 @@ pipeline {
     stage('test') {
       steps {
         script{
-          sh 'docker run hello-world'
+          sh '''
+            docker run centos:8 /bin/bash -c "\
+              cat /etc/*release;\
+              uname -a;\
+            "
+          '''
         }
       }
     }
