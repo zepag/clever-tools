@@ -20,11 +20,6 @@ pipeline {
       }
     }
   }
-  post {
-    always {
-      archiveArtifacts artifacts: 'releases/**/*', fingerprint: true, onlyIfSuccessful: true
-    }
-  }
 }
 
 @NonCPS
