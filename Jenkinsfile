@@ -15,6 +15,9 @@ pipeline {
               cat /etc/*release;\
               uname -a;\
             "
+            npm --version;
+            node -e "console.log('fu');"
+            fpm --version;
           '''
         }
       }
