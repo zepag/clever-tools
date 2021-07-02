@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'test-zepag-hyoob-todelete' }
+  agent { label 'clever-tools-build-agent' }
   environment {
     GIT_TAG_NAME = gitTagName()
   }
